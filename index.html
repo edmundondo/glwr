@@ -75,13 +75,11 @@
     .workflow p{margin:0;font-size:12px;line-height:1.6;color:var(--soft)}
     .guide{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-top:30px}
     .guide article{background:var(--card);border:1px solid var(--line);padding:22px}
-    footer{margin-top:28px;color:var(--muted);font-size:12px;text-align:center;line-height:1.6;padding:22px clamp(18px,5vw,72px)}
-    .matokipedo-footer{display:flex;flex-direction:column;align-items:center;gap:8px;padding-top:20px;border-top:1px solid var(--border)}
-    .matokipedo-brand{display:flex;align-items:center;gap:10px}
-    .matokipedo-logo{height:36px;width:auto;border-radius:6px}
-    .matokipedo-tagline{font-size:12px;color:var(--muted)}
-    .matokipedo-footer .reset-link{font-size:11px}
-    footer .reset-link{color:var(--accent2);cursor:pointer;text-decoration:underline}
+    footer{margin-top:28px;padding:0 clamp(18px,5vw,72px);background:#0b1218;border-top:1px solid #26323c;color:#93a7ba}
+    .matokipedo-footer{min-height:68px;display:flex;align-items:center;justify-content:flex-start;gap:11px;max-width:1400px;margin:auto}
+    .matokipedo-logo{height:40px;width:36px;object-fit:cover;border-radius:7px}
+    .matokipedo-mark{height:40px;width:36px;border-radius:7px;border:1px solid #33404b;display:grid;place-items:center;color:#c18c3d;font:700 18px Georgia,serif;background:#141c23}
+    .matokipedo-tagline{font-size:12px;color:#93a7ba;letter-spacing:.01em}
     @media(max-width:800px){.metrics{grid-template-columns:repeat(2,1fr)}.filters{grid-template-columns:1fr}.season{grid-template-columns:1fr}.guide{grid-template-columns:1fr}.status{display:none}}
     @media(max-width:520px){.hero h1{font-size:42px}.head{align-items:start;flex-direction:column}.metrics{grid-template-columns:1fr}.metrics div{border-right:0;border-bottom:1px solid var(--line)}.months{gap:3px}.month b{display:none}footer{flex-direction:column}}
   </style>
@@ -101,12 +99,11 @@
 
   <footer>
     <div class="matokipedo-footer">
-      <div class="matokipedo-brand">
-        <!-- Optional logo: <img src="images/matokipedo-logo.png" alt="Matokipedo" class="matokipedo-logo"> -->
-        <strong>Goromonzi Land &amp; Water Dashboard</strong>
-      </div>
-      <div class="matokipedo-tagline">Decision support only · not a land offer or title record</div>
-      <span class="reset-link" id="resetDashboard" role="button" tabindex="0">Reset dashboard</span>
+      <!-- Replace this mark with your logo image when available:
+      <img src="images/matokipedo-logo.png" alt="Matokipedo" class="matokipedo-logo">
+      -->
+      <div class="matokipedo-mark" aria-hidden="true">M</div>
+      <div class="matokipedo-tagline">Live infrastructure monitoring by Matokipedo</div>
     </div>
   </footer>
 
@@ -156,19 +153,6 @@
     const mm=Math.max(...monthly.map(x=>x[1]));
     document.querySelector('#months').innerHTML=monthly.map(([m,v])=>`<div class="month"><div class="track"><div class="mbar" style="height:${Math.max(3,v/mm*100)}%" title="${m}: ${v} mm"></div></div><b>${Math.round(v)}</b><span>${m}</span></div>`).join('');
 
-    // Footer reset script
-    function resetDashboard(){
-      document.querySelector('#search').value='';
-      document.querySelector('#grade').value='All grades';
-      renderLand();
-      const landTab=document.querySelector('[data-tab="land"]');
-      document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('active',x===landTab));
-      document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id==='land'));
-      window.scrollTo({top:0,behavior:'smooth'});
-    }
-    const resetLink=document.querySelector('#resetDashboard');
-    resetLink.addEventListener('click',resetDashboard);
-    resetLink.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();resetDashboard();}});
   </script>
 </body>
 </html>
