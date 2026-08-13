@@ -33,5 +33,14 @@
     function chart(){const svg=document.querySelector('#rainchart'),W=900,H=320,L=55,R=15,T=20,B=40,max=1200,ph=H-T-B,b=(W-L-R)/12,y=v=>T+ph*(1-v/max);let s='';[0,300,600,900,1200].forEach(t=>s+=`<line class="grid" x1="${L}" y1="${y(t)}" x2="${W-R}" y2="${y(t)}"/><text x="${L-9}" y="${y(t)+4}" text-anchor="end">${t}</text>`);s+=`<line class="avg" x1="${L}" y1="${y(806)}" x2="${W-R}" y2="${y(806)}"/><text x="${W-R}" y="${y(806)-7}" text-anchor="end">12-year average 806 mm</text>`;annual.forEach((v,i)=>{const x=L+i*b+b*.2,h=ph-(y(v)-T);s+=`<rect class="bar" x="${x}" y="${y(v)}" width="${b*.6}" height="${h}" rx="4"><title>${2014+i}: ${v} mm</title></rect><text x="${x+b*.3}" y="${H-16}" text-anchor="middle">${2014+i}</text>`});svg.innerHTML=s}chart();
     const mm=Math.max(...monthly.map(x=>x[1]));document.querySelector('#months').innerHTML=monthly.map(([m,v])=>`<div class="month"><div class="track"><div class="mbar" style="height:${Math.max(3,v/mm*100)}%"></div></div><b>${Math.round(v)}</b><span>${m}</span></div>`).join('');
   </script>
-</body>
+   footer{margin-top:28px;color:var(--muted);font-size:12px;text-align:center;line-height:1.6;}
+  .matokipedo-footer{
+    display:flex;flex-direction:column;align-items:center;gap:8px;
+    padding-top:20px;border-top:1px solid var(--border);
+  }
+  .matokipedo-brand{display:flex;align-items:center;gap:10px;}
+  .matokipedo-logo{height:36px;width:auto;border-radius:6px;}
+  .matokipedo-tagline{font-size:12px;color:var(--muted);}
+  .matokipedo-footer .reset-link{font-size:11px;}
+  footer .reset-link{color:var(--accent2);cursor:pointer;text-decoration:underline;}</body>
 </html>
